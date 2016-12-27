@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+	<dubbo:service interface="com.zlebank.zplatform.trade.acc.service.TradeAccountingService" ref="tradeAccountingService" version="1.0" timeout="30000">
+		<dubbo:method name="accountingFor" async="true" return="false" retries="0" retry="0" timeout="30000"/>
+		<dubbo:method name="accountingForSync" retry="0" retries="0" timeout="30000"/>
+	</dubbo:service>
+	<dubbo:service interface="com.zlebank.zplatform.trade.acc.service.InsteadPayAccountingService" ref="insteadPayAccountingService" retries="0" version="1.0"  timeout="30000">
+		<dubbo:method name="advancePaymentAccounting" retries="0" retry="0" timeout="30000"/>
+		<dubbo:method name="reexchangeAccounting" async="true" return="false" retries="0" retry="0" timeout="30000"/>
+	</dubbo:service>
+	
+	<dubbo:service interface="com.zlebank.zplatform.trade.acc.service.RefundAccountingService" ref="refundAccountingService" retries="0" version="1.0"  timeout="30000"/>
+	<dubbo:service interface="com.zlebank.zplatform.trade.acc.service.WithdrawAccountingService" ref="withdrawAccountingService" retries="0" version="1.0"  timeout="30000"/>
+	
+	<dubbo:reference id="accEntryService" interface="com.zlebank.zplatform.acc.service.AccEntryService" version="1.0"/>
+</beans>
